@@ -1,0 +1,136 @@
+/* ================================
+   🌙 ZenVest Design System v2
+   Author: Shalvi Srivastava
+   Palette: Electric Blue-Violet Dark
+   ================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@300;400;500&display=swap');
+
+:root {
+  /* 🎨 Core Palette */
+  --text: #eae9fc;
+  --text-muted: #b4b3d4;
+  --text-heading: #ffffff;
+
+  --background: #010104;
+  --secondary: #020024;
+  --primary: #3a31d8;
+  --accent: #0600c2;
+
+  /* 💠 Gradients */
+  --gradient-hero: linear-gradient(135deg, #020024 0%, #3a31d8 40%, #0600c2 100%);
+  --gradient-button: linear-gradient(90deg, #3a31d8, #0600c2);
+  --gradient-accent: linear-gradient(90deg, #3a31d8, #7b6ef6);
+
+  /* ✨ Shadows */
+  --shadow-soft: 0 4px 20px rgba(58, 49, 216, 0.15);
+  --shadow-glow: 0 0 20px rgba(6, 0, 194, 0.5);
+
+  /* 🖱 States */
+  --hover-primary: #4d45ff;
+  --hover-accent: #1a13e0;
+
+  /* ✅ Feedback */
+  --success: #3ddc97;
+  --error: #ff5c5c;
+  --warning: #f0c94a;
+
+  /* 📏 Layout + Spacing */
+  --max-width: 1200px;
+  --radius: 12px;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+}
+
+/* ================================
+   🧱 Global Structure
+   ================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-md);
+}
+
+/* ================================
+   🧭 Navbar
+   ================================ */
+
+nav.navbar {
+  background-color: var(--bg-card);
+  /* Slightly lighter than bg-dark for contrast */
+  box-shadow: var(--shadow-soft);
+}
+
+nav.navbar .container {
+  gap: 20rem;
+}
+
+.navbar-brand img {
+  width: 30%;
+  /* height: 40px; */
+  /* filter: drop-shadow(var(--shadow-glow)); */
+}
+
+/* Nav Links */
+.navbar-nav .nav-link {
+  color: var(--text);
+  /* font-weight: 500; */
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* Active NavLink (react-router NavLink automatically gives .active) */
+.navbar-nav .nav-link.active {
+  color: var(--accent);
+  /* border-bottom: 2px solid var(--accent); */
+}
+
+/* Navbar toggler for mobile */
+.navbar-toggler {
+  border: 1px solid var(--accent);
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(77,208,225, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Optional hover effect on brand */
+.navbar-brand:hover img {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+
+
+/* Hero */
+.hero-section .container h1 span {
+  background: linear-gradient(90deg, var(--text-heading) 0%, #0600c2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block; 
+}
