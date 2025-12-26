@@ -10,6 +10,16 @@ export default function Hero() {
           your wealth.
         </p>
       </div>
+      <div className="container text-center p-2">
+        <button className="btn btn-outline-primary">Signup</button>
+      </div>
+      <div className="container p-2 text-center">
+        <img
+          src="/assets/images/image.png"
+          alt="Hero Image"
+          className="img-fluid"
+        />
+      </div>
     </section>
   );
 }

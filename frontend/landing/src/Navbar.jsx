@@ -6,7 +6,7 @@ export default function Navbar() {
       <div className="container p-2 ">
         <NavLink className="navbar-brand" to="/">
           <img src="assets/images/Zenvest-logo.svg" alt="Zenvest" />
-          {/* <img src="assets/images/gpt-logo.png" alt="Zenvest" /> */}
+          {/* <img src="assets/images/finllogo.png" alt="Zenvest" /> */}
         </NavLink>
 
         <button

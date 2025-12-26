@@ -132,5 +132,75 @@ nav.navbar .container {
   background: linear-gradient(90deg, var(--text-heading) 0%, #0600c2 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  display: inline-block; 
+  display: inline-block;
+}
+
+.hero-section img {
+  width: 65%;
+}
+
+.hero-section button {
+  border-radius: 1.5rem;
+  border-width: 2px;
+}
+
+/* features */
+.features-section h3 {
+  color: var(--primary);
+}
+
+.features-section h2 {
+  background: linear-gradient(90deg, var(--text-heading) 0%, #0600c2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.feature-item.reverse {
+  flex-direction: row-reverse;
+}
+
+.feature-image {
+  flex: 1;
+  min-height: 260px;
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.feature-text {
+  flex: 1;
+}
+
+.feature-text h3 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.feature-text p {
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+
+  .feature-item,
+  .feature-item.reverse {
+    flex-direction: column;
+    text-align: center;
+  }
 }
