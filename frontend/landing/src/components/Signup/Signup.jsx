@@ -1,12 +1,37 @@
-export default function Signup() {
+export default function SignupSection() {
   return (
-    <section className="features-section">
-      <div className="container text-center p-2">
-        <h2>Smart features, designed for real life</h2>
-        <p>
-          ZenVest focuses on clarity, security, and simplicity—so managing money
-          feels natural, not stressful.
-        </p>
+    <section className="signup-section">
+      <div className="signup-container">
+        
+        {/* Left content */}
+        <div className="signup-content heading-subheading">
+          <h1>
+            Invest smarter,<br />
+            <span>not harder.</span>
+          </h1>
+          <p>
+            Create your ZenVest account and learn, track, and grow your
+            investments — all in one simple place.
+          </p>
+        </div>
+
+        {/* Right form */}
+        <div className="signup-card">
+          <h3>Create account</h3>
+
+          <form>
+            <input type="text" placeholder="Full name" />
+            <input type="email" placeholder="Email address" />
+            <input type="password" placeholder="Password" />
+
+            <button type="submit">Get started</button>
+          </form>
+
+          <span className="login-text">
+            Already have an account? <a href="#">Log in</a>
+          </span>
+        </div>
+
       </div>
     </section>
   );

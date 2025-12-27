@@ -1,7 +1,7 @@
 export default function Hero() {
   return (
     <section className="hero-section">
-      <div className="container p-2 text-center">
+      <div className="container p-2 text-center heading-subheading">
         <h1>
           Invest smart , <span>Grow smarter</span>
         </h1>
@@ -11,7 +11,7 @@ export default function Hero() {
         </p>
       </div>
       <div className="container text-center p-2">
-        <button className="btn btn-outline-primary">Signup</button>
+        <button className="btn btn-outline-primary">Get Started Now</button>
       </div>
       <div className="container p-2 text-center">
         <img
