@@ -5,8 +5,8 @@ export default function Navbar() {
     <nav className="navbar navbar-expand-lg border-bottom">
       <div className="container p-2 ">
         <NavLink className="navbar-brand" to="/">
-          <img src="assets/images/Zenvest-logo.svg" alt="Zenvest" />
-          {/* <img src="assets/images/finllogo.png" alt="Zenvest" /> */}
+          {/* <img src="assets/images/Zenvest-logo.svg" alt="Zenvest" /> */}
+          <img src="assets/images/finllogo.png" alt="Zenvest" />
         </NavLink>
 
         <button

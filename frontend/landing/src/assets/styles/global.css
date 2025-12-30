@@ -83,14 +83,21 @@ nav.navbar {
 }
 
 nav.navbar .container {
-  gap: 20rem;
+  gap: 2rem;
 }
 
-.navbar-brand img {
-  width: 30%;
-  /* height: 40px; */
-  /* filter: drop-shadow(var(--shadow-glow)); */
+@media (max-width: 768px) {
+  nav.navbar .container {
+    gap: 0;
+  }
 }
+
+
+.navbar-brand img {
+  width: auto;
+  height: 36px;
+}
+
 
 /* Nav Links */
 .navbar-nav .nav-link {
@@ -218,14 +225,16 @@ nav.navbar .container {
 .guide-card {
   padding: 1.5rem;
   border-radius: 12px;
-  background: #f9f9fb;
+  background: var(--secondary);
   text-align: left;
-  color: var(--primary);
-  border: 3px solid var(--accent);
+  color: var(--text);
+  border: 1px solid var(--text-heading);
 }
-.guide-card p{
+
+.guide-card p {
   color: var(--text-muted);
 }
+
 .guide-section button {
   border-radius: 1.5rem;
   border-width: 2px;
@@ -256,6 +265,7 @@ nav.navbar .container {
 .signup-content h1 span {
   background: var(--gradient-accent);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -344,9 +354,11 @@ nav.navbar .container {
   }
 }
 
-.heading-subheading p{
-color: var(--text-muted);
+.heading-subheading p {
+  color: var(--text-muted);
 }
-.heading-subheading h1,h2{
+
+.heading-subheading h1,
+h2 {
   color: var(--text-heading);
 }
