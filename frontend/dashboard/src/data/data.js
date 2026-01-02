@@ -25,7 +25,7 @@ export const watchlist = [
   },
   {
     name: "QUICKHEAL",
-    price: 308.55,
+    price: 400.58,
     percent: "-0.15%",
     isDown: true,
   },
@@ -195,7 +195,7 @@ export const orders = [
   {
     id: 1,
     name: "INFY",
-    type: "BUY",
+    mode: "BUY",
     qty: 1,
     price: 1350.5,
     status: "COMPLETED",
@@ -204,7 +204,7 @@ export const orders = [
   {
     id: 2,
     name: "TCS",
-    type: "BUY",
+    mode: "BUY",
     qty: 1,
     price: 3041.7,
     status: "COMPLETED",
@@ -213,7 +213,7 @@ export const orders = [
   {
     id: 3,
     name: "M&M",
-    type: "SELL",
+    mode: "SELL",
     qty: 2,
     price: 800.0,
     status: "CANCELLED",
@@ -222,7 +222,7 @@ export const orders = [
   {
     id: 4,
     name: "WIPRO",
-    type: "BUY",
+    mode: "BUY",
     qty: 4,
     price: 489.3,
     status: "PENDING",

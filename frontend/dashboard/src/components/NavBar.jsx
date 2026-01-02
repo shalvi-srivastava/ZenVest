@@ -1,6 +1,10 @@
 import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = window.location.origin + "/";
+  };
   return (
     <nav className="navbar navbar-expand-lg  border-bottom">
       <div className="container p-2">
@@ -65,8 +69,13 @@ const NavBar = () => {
             </button>
 
             <ul className="dropdown-menu dropdown-menu-end">
-              <li className="dropdown-item">Profile</li>
-              <li className="dropdown-item">Logout</li>
+              <li
+                className="dropdown-item"
+                style={{ cursor: "pointer" }}
+                onClick={handleLogout}
+              >
+                Logout
+              </li>
             </ul>
           </div>
         </div>

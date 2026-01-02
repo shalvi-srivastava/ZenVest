@@ -83,7 +83,7 @@ nav.navbar {
 }
 
 nav.navbar .container {
-  gap: 2rem;
+  gap: 40rem;
 }
 
 @media (max-width: 768px) {
@@ -315,7 +315,8 @@ nav.navbar .container {
   border-radius: var(--radius);
   border: none;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 1px;
   color: white;
   background: var(--gradient-button);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -326,7 +327,7 @@ nav.navbar .container {
   box-shadow: var(--shadow-glow);
 }
 
-.login-text {
+.login-text,.signup-text {
   display: block;
   margin-top: var(--space-sm);
   font-size: 0.9rem;

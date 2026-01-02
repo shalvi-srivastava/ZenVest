@@ -1,30 +1,52 @@
-import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
-export default function SignupSection() {
+export default function LoginSection() {
   const [formError, setFormError] = useState("");
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSignup = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.post("/auth/signup", {
-        name,
+      const res = await axios.post("/auth/login", {
         email,
         password,
       });
 
-      window.location.href = "/login";
+      localStorage.setItem("token", res.data.token);
+      window.location.assign(window.location.origin + "/dashboard");
+
+      // navigate("/dashboard"); // 👈 THIS LINE ONLY
     } catch (err) {
-      console.log(err);
-      setFormError(err.response?.data?.message || "Something went wrong");
+      console.log("LOGIN ERROR 👉", err);
+      console.log("RESPONSE 👉", err.response);
+      console.log("MESSAGE 👉", err.response?.data?.message);
+
+      setFormError(err.response?.data?.message || "Invalid email or password");
     }
   };
+
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+  //   // setFormError("");
+
+  //   try {
+  //     const res = await axios.post("http://localhost:5000/auth/login", {
+  //       email,
+  //       password,
+  //     });
+
+  //     localStorage.setItem("token", res.data.token);
+  //     navigate("/dashboard");
+  //   } catch (err) {
+  //     console.log("LOGIN ERROR", err.response?.data);
+  //     setFormError(err.response?.data?.message || "Invalid credentials");
+  //   }
+  // };
 
   return (
     <section className="signup-section">
@@ -44,17 +66,9 @@ export default function SignupSection() {
 
         {/* Right form */}
         <div className="signup-card">
-          <h3>Create account</h3>
+          <h3>Login to your account</h3>
 
-          <form onSubmit={handleSignup} noValidate className="needs-validation">
-            <input
-              type="text"
-              placeholder="Full name"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-
+          <form noValidate className="needs-validation" onSubmit={handleLogin}>
             <input
               type="email"
               placeholder="Email address"
@@ -69,10 +83,6 @@ export default function SignupSection() {
                   : "Please enter a valid email address."}
               </div>
             )} */}
-            {formError && (
-              <div className="invalid-feedback d-block">{formError}</div>
-            )}
-
             <input
               type="password"
               placeholder="Password"
@@ -80,12 +90,15 @@ export default function SignupSection() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            {formError && (
+              <div className="invalid-feedback d-block">{formError}</div>
+            )}
 
-            <button type="submit">Get started</button>
+            <button type="submit">Login</button>
           </form>
 
-          <span className="login-text">
-            Already have an account? <Link to="/login">Log in</Link>
+          <span className="signup-text">
+            New here? <Link to="/signup">Create an account</Link>
           </span>
         </div>
       </div>

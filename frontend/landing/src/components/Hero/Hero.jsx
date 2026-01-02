@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Hero() {
+  const navigate = useNavigate();
   return (
     <section className="hero-section">
       <div className="container p-2 text-center heading-subheading">
@@ -11,7 +14,12 @@ export default function Hero() {
         </p>
       </div>
       <div className="container text-center p-2">
-        <button className="btn btn-outline-primary">Get Started Now</button>
+        <button
+          className="btn btn-outline-primary"
+          onClick={() => navigate("/signup")}
+        >
+          Get Started Now
+        </button>
       </div>
       <div className="container p-2 text-center">
         <img

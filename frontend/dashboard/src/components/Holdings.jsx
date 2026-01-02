@@ -1,6 +1,19 @@
-import { holdings } from "../data/data";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+// import { holdings } from "../data/data";
 
 function Holdings() {
+  const [holdings, setHoldings] = useState([]);
+  const fetchHoldings = () => {
+    axios.get("/dashboard/api/holdings").then((res) => {
+      setHoldings(res.data);
+    });
+  };
+
+  useEffect(() => {
+    fetchHoldings();
+  }, []);
+
   // EMPTY STATE
   if (holdings.length === 0) {
     return (
@@ -30,39 +43,50 @@ function Holdings() {
                 <th>Stock</th>
                 <th>Qty</th>
                 <th>Avg Price</th>
+                <th>LTP</th>
                 <th>Current Price</th>
+                <th>P&L</th>
                 <th>Net</th>
                 <th>Day</th>
               </tr>
             </thead>
 
             <tbody>
-              {holdings.map((stock) => (
-                <tr key={stock.name}>
-                  <td className="stock-name">{stock.name}</td>
-                  <td>{stock.qty}</td>
-                  <td>₹{stock.avg}</td>
-                  <td>₹{stock.price}</td>
+              {holdings.map((stock) => {
+                const curValue = stock.price * stock.qty;
+                const isProfit = curValue - stock.avg * stock.qty >= 0.0;
+                const profClass = isProfit ? "profit" : "loss";
+                const dayClass = stock.isLoss ? "loss" : "profit";
+                const investedValue = stock.avg * stock.qty;
+                const currentValue = stock.price * stock.qty;
 
-                  <td
-                    className={
-                      stock.net.startsWith("-")
-                        ? "text-danger fw-semibold"
-                        : "text-success fw-semibold"
-                    }
-                  >
-                    {stock.net}
-                  </td>
+                const pnl = currentValue - investedValue;
+                const netPercent = (pnl / investedValue) * 100;
 
-                  <td
-                    className={
-                      stock.day.startsWith("-") ? "text-danger" : "text-success"
-                    }
-                  >
-                    {stock.day}
-                  </td>
-                </tr>
-              ))}
+                return (
+                  <tr key={stock.name}>
+                    <td className="stock-name">{stock.name}</td>
+                    <td>{stock.qty}</td>
+                    <td>₹{stock.avg.toFixed(2)}</td>
+                    <td>₹{stock.price.toFixed(2)}</td>
+                    <td>₹{curValue.toFixed(2)}</td>
+                    <td className={profClass}>
+                      {(curValue - stock.avg * stock.qty).toFixed(2)}
+                    </td>
+                    <td className={pnl >= 0 ? "text-success" : "text-danger"}>
+                      ₹{pnl.toFixed(2)}
+                    </td>
+
+                    <td
+                      className={
+                        netPercent >= 0 ? "text-success" : "text-danger"
+                      }
+                    >
+                      {netPercent.toFixed(2)}%
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

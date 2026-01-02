@@ -1,6 +1,9 @@
 import { UserPlus, LineChart, Rocket } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Guide() {
+  const navigate = useNavigate();
+
   return (
     <section className="guide-section">
       <div className="container text-center p-2">
@@ -44,7 +47,7 @@ export default function Guide() {
       </div>
 
       <div className="container text-center p-2">
-        <button className="btn btn-outline-primary">Get Started Now</button>
+        <button className="btn btn-outline-primary" onClick={() => navigate("/signup")}>Get Started Now</button>
       </div>
     </section>
   );

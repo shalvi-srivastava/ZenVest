@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import TradeModal from "./TradeModal";
 import { watchlist } from "../data/data";
 import { Tooltip, Grow } from "@mui/material";
 import {
@@ -9,6 +10,20 @@ import {
 } from "@mui/icons-material";
 
 function WatchList() {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedStock, setSelectedStock] = useState("");
+  const [tradeType, setTradeType] = useState("BUY");
+  const [selectedPrice, setSelectedPrice] = useState(0);
+
+  const openTradeModal = (stock, type, price) => {
+    setSelectedStock(stock);
+    setTradeType(type);
+    setSelectedPrice(price);
+    setShowModal(true);
+  };
+
+  const closeTradeModal = () => setShowModal(false);
+
   const [width, setWidth] = useState(280);
   const [isResizing, setIsResizing] = useState(false);
 
@@ -47,15 +62,15 @@ function WatchList() {
       className="watchlist-container"
     >
       <div className="search-container mb-2">
-        <form class="d-none d-lg-flex mx-auto search-bar">
+        <form className="d-none d-lg-flex mx-auto search-bar">
           <input
-            class="form-control"
+            className="form-control"
             type="search"
             placeholder="Search stocks..."
             aria-label="Search"
           />
-          <button class="btn" type="submit">
-            <i class="fa-solid fa-magnifying-glass"></i>
+          <button className="btn" type="submit">
+            <i className="fa-solid fa-magnifying-glass"></i>
           </button>
         </form>
         {/* <span className="counts">{watchlist.length}</span> */}
@@ -78,11 +93,22 @@ function WatchList() {
             {/* MIDDLE: Hover actions */}
             <div className="mid-actions">
               <Tooltip title="Buy" arrow TransitionComponent={Grow}>
-                <button className="action-btn buy">Buy</button>
+                <button
+                  className="action-btn buy"
+                  onClick={() => openTradeModal(stock.name, "BUY", stock.price)}
+                >
+                  Buy
+                </button>
               </Tooltip>
-
               <Tooltip title="Sell" arrow TransitionComponent={Grow}>
-                <button className="action-btn sell">Sell</button>
+                <button
+                  className="action-btn sell"
+                  onClick={() =>
+                    openTradeModal(stock.name, "SELL", stock.price)
+                  }
+                >
+                  Sell
+                </button>
               </Tooltip>
 
               <Tooltip title="Analytics" arrow TransitionComponent={Grow}>
@@ -90,7 +116,6 @@ function WatchList() {
                   <BarChartOutlined fontSize="small" />
                 </button>
               </Tooltip>
-
               <Tooltip title="More" arrow TransitionComponent={Grow}>
                 <button className="action-btn">
                   <MoreHoriz fontSize="small" />
@@ -132,6 +157,13 @@ function WatchList() {
         onMouseLeave={(e) =>
           (e.currentTarget.style.backgroundColor = "transparent")
         }
+      />
+      <TradeModal
+        show={showModal}
+        onClose={closeTradeModal}
+        stock={selectedStock}
+        type={tradeType}
+        marketPrice={selectedPrice}
       />
     </div>
   );

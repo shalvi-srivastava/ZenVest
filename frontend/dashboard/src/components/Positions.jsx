@@ -1,6 +1,14 @@
-import { positions } from "../data/data";
-
+// import { positions } from "../data/data";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 function Positions() {
+  const [positions, setPositions] = useState([]);
+  useEffect(() => {
+    axios.get("/dashboard/api/positions").then((res) => {
+      console.log(res.data);
+      setPositions(res.data);
+    });
+  }, []);
   // EMPTY STATE
   if (positions.length === 0) {
     return (
@@ -10,9 +18,7 @@ function Positions() {
         <div className="card shadow-sm table-card text-center mx-5">
           <div className="card-body text-center py-5">
             <h5>No open positions</h5>
-            <p >
-              You don’t have any active positions right now.
-            </p>
+            <p>You don’t have any active positions right now.</p>
           </div>
         </div>
       </div>
@@ -43,21 +49,17 @@ function Positions() {
               {positions.map((pos, index) => (
                 <tr key={index}>
                   <td>
-                    <span className="badge bg-secondary">
-                      {pos.product}
-                    </span>
+                    <span className="badge bg-secondary">{pos.product}</span>
                   </td>
 
-                  <td className="fw-semibold">{pos.name}</td>
+                  <td style={{ fontWeight: "400px" }}>{pos.name}</td>
                   <td>{pos.qty}</td>
                   <td>₹{pos.avg}</td>
                   <td>₹{pos.price}</td>
 
                   <td
                     className={
-                      pos.net.startsWith("-")
-                        ? "text-danger fw-semibold"
-                        : "text-success fw-semibold"
+                      pos.net.startsWith("-") ? "text-danger " : "text-success "
                     }
                   >
                     {pos.net}
@@ -65,9 +67,7 @@ function Positions() {
 
                   <td
                     className={
-                      pos.day.startsWith("-")
-                        ? "text-danger"
-                        : "text-success"
+                      pos.day.startsWith("-") ? "text-danger" : "text-success"
                     }
                   >
                     {pos.day}

@@ -1,6 +1,22 @@
-import { orders } from "../data/data";
-
+// import { orders } from "../data/data";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 function Orders() {
+  const [orders, setOrders] = useState([]);
+  useEffect(() => {
+    axios.get("/dashboard/api/orders").then((res) => {
+      setOrders(res.data);
+    });
+  }, []); // 👈 THIS LINE IS CRUCIAL
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
+
   const statusColor = {
     COMPLETED: "bg-success",
     PENDING: "bg-warning",
@@ -37,33 +53,33 @@ function Orders() {
                 <th>Type</th>
                 <th>Qty</th>
                 <th>Price</th>
-                <th>Status</th>
+                {/* <th>Status</th> */}
                 <th>Date</th>
               </tr>
             </thead>
 
             <tbody>
               {orders.map((order) => (
-                <tr key={order.id}>
+                <tr key={order._id}>
                   <td>{order.name}</td>
                   <td
                     className={
-                      order.type === "BUY"
+                      order.mode === "BUY"
                         ? "text-success fw-semibold"
                         : "text-danger fw-semibold"
                     }
                   >
-                    {order.type}
+                    {order.mode}
                   </td>
                   <td>{order.qty}</td>
                   <td>₹{order.price}</td>
-                  <td>
+                  {/* <td>
                     <span className={`badge ${statusColor[order.status]}`}>
                       {order.status}
                     </span>
-                  </td>
+                  </td> */}
 
-                  <td>{order.date}</td>
+                  <td>{formatDate(order.date)}</td>
                 </tr>
               ))}
             </tbody>
