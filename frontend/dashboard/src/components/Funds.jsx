@@ -1,8 +1,25 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 function Funds() {
-  // dummy values (later from backend / context)
-  const totalBalance = 50000;
-  const investedAmount = 18000;
-  const availableBalance = totalBalance - investedAmount;
+  const [funds, setFunds] = useState({
+    totalBalance: 0,
+    investedAmount: 0,
+    availableBalance: 0,
+  });
+
+  useEffect(() => {
+    axios
+      .get("/dashboard/api/funds", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        setFunds(res.data);
+      });
+  }, []);
+
+  const { totalBalance, investedAmount, availableBalance } = funds;
 
   return (
     <div className="container-fluid">

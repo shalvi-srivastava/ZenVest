@@ -3,11 +3,26 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 function Orders() {
   const [orders, setOrders] = useState([]);
+  // useEffect(() => {
+  //   axios.get("/dashboard/api/orders").then((res) => {
+  //     setOrders(res.data);
+  //   });
+  // }, []); // 👈 THIS LINE IS CRUCIAL
   useEffect(() => {
-    axios.get("/dashboard/api/orders").then((res) => {
-      setOrders(res.data);
-    });
-  }, []); // 👈 THIS LINE IS CRUCIAL
+    axios
+      .get("/dashboard/api/orders", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        console.log("ORDERS DATA 👉", res.data); // optional but useful
+        setOrders(res.data);
+      })
+      .catch((err) => {
+        console.error("Orders fetch failed ❌", err);
+      });
+  }, []);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-IN", {

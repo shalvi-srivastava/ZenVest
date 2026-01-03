@@ -1,17 +1,25 @@
+const { FundsModel } = require("../models/FundsModel");
 const { HoldingsModel } = require("../models/HoldingsModel");
 const { OrdersModel } = require("../models/OrdersModel");
-const { PositionsModel } = require("../models/PositionsModel");
+// const { PositionsModel } = require("../models/PositionsModel");
 module.exports.fetchHoldings = async (req, res) => {
-  let allHoldings = await HoldingsModel.find({});
+  let allHoldings = await HoldingsModel.find({ userId: req.user.userId });
   res.json(allHoldings);
 };
-module.exports.fetchPositions = async (req, res) => {
-  let allPositions = await PositionsModel.find({});
-  res.json(allPositions);
-};
+// module.exports.fetchPositions = async (req, res) => {
+//   let allPositions = await PositionsModel.find({ userId: req.user.userId });
+//   res.json(allPositions);
+// };
 module.exports.fetchOrders = async (req, res) => {
-  let allOrders = await OrdersModel.find({});
+  console.log("REQ.USER 👉", req.user);
+
+  let allOrders = await OrdersModel.find({ userId: req.user.userId });
   res.json(allOrders);
+};
+
+module.exports.fetchFunds = async (req, res) => {
+  let funds = await FundsModel.findOne({ userId: req.user.userId });
+  res.json(funds);
 };
 module.exports.newOrder = async (req, res) => {
   try {

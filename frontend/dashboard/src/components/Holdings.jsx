@@ -5,9 +5,15 @@ import axios from "axios";
 function Holdings() {
   const [holdings, setHoldings] = useState([]);
   const fetchHoldings = () => {
-    axios.get("/dashboard/api/holdings").then((res) => {
-      setHoldings(res.data);
-    });
+    axios
+      .get("/dashboard/api/holdings", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        setHoldings(res.data);
+      });
   };
 
   useEffect(() => {
