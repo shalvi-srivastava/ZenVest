@@ -18,6 +18,7 @@ export default function LoginSection() {
       });
 
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
       window.location.assign(window.location.origin + "/dashboard");
 
       // navigate("/dashboard"); // 👈 THIS LINE ONLY

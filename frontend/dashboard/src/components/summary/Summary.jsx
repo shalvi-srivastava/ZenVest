@@ -5,7 +5,7 @@ import PerformanceCard from "./PerformanceCard";
 import AllocationCard from "./AllocationCard";
 import { useState, useEffect } from "react";
 import axios from "axios";
-export default function Summary() {
+export default function Summary({refreshKey}) {
   const [holdings, setHoldings] = useState([]);
   // const [positions, setPositions] = useState([]);
   const [funds, setFunds] = useState({
@@ -30,7 +30,7 @@ export default function Summary() {
     axios.get("/dashboard/api/funds", { headers }).then((res) => {
       setFunds(res.data);
     });
-  }, []);
+  }, [refreshKey]);
 
   const investedAmount = holdings.reduce(
     (total, stock) => total + stock.avg * stock.qty,

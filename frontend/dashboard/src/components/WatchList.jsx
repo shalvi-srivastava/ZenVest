@@ -9,7 +9,7 @@ import {
   MoreHoriz,
 } from "@mui/icons-material";
 
-function WatchList() {
+function WatchList({ onOrderSuccess }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedStock, setSelectedStock] = useState("");
   const [tradeType, setTradeType] = useState("BUY");
@@ -164,6 +164,7 @@ function WatchList() {
         stock={selectedStock}
         type={tradeType}
         marketPrice={selectedPrice}
+        onOrderSuccess={onOrderSuccess}
       />
     </div>
   );

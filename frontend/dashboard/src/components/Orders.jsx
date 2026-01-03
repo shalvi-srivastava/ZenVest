@@ -1,7 +1,7 @@
 // import { orders } from "../data/data";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-function Orders() {
+function Orders({refreshKey}) {
   const [orders, setOrders] = useState([]);
   // useEffect(() => {
   //   axios.get("/dashboard/api/orders").then((res) => {
@@ -22,7 +22,7 @@ function Orders() {
       .catch((err) => {
         console.error("Orders fetch failed ❌", err);
       });
-  }, []);
+  }, [refreshKey]);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-IN", {

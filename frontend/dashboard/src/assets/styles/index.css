@@ -191,6 +191,32 @@ h2 {
     pointer-events: auto;
 }
 
+.modal-content {
+    background: var(--secondary);
+    color: var(--text-heading);
+}
+
+.modal-content input {
+    /* border-radius: var(--radius); */
+    border: 1px solid transparent;
+    background-color: #0b010a;
+    color: var(--text);
+    outline: none;
+}
+
+.modal-content input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(58, 49, 216, 0.25);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
 /* Buttons */
 .action-btn {
     background: transparent;

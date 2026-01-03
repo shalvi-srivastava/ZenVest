@@ -1,7 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function TradeModal({ show, onClose, stock, type, marketPrice }) {
+function TradeModal({
+  show,
+  onClose,
+  stock,
+  type,
+  marketPrice,
+  onOrderSuccess,
+}) {
   const [qty, setQty] = useState(1);
   const [price, setPrice] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -23,8 +30,8 @@ function TradeModal({ show, onClose, stock, type, marketPrice }) {
         "/dashboard/api/newOrder",
         {
           name: stock,
-          qty: qty,
-          price: price,
+          qty,
+          price,
           mode: type,
         },
         {
@@ -34,16 +41,16 @@ function TradeModal({ show, onClose, stock, type, marketPrice }) {
         }
       );
 
-      setLoading(false);
+      onOrderSuccess && onOrderSuccess(); // 🔥 FIX
       onClose();
     } catch (err) {
-      setLoading(false);
-
       if (err.response && err.response.data?.error) {
         alert(err.response.data.error);
       } else {
         alert("Order failed");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,7 +65,15 @@ function TradeModal({ show, onClose, stock, type, marketPrice }) {
             <h5 className="modal-title">
               {type} {stock}
             </h5>
-            <button className="btn-close" onClick={onClose}></button>
+            <button
+              className="btn-close close-btn"
+              data-bs-theme="dark"
+              style={{ color: "red" }}
+              onClick={onClose}
+            ></button>
+            {/* <button onClick={onClose} className="close-btn">
+              ✕
+            </button> */}
           </div>
 
           <div className="modal-body">

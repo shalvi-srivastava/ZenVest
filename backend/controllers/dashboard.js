@@ -24,36 +24,37 @@ module.exports.fetchFunds = async (req, res) => {
 module.exports.newOrder = async (req, res) => {
   try {
     const { name, qty, price, mode } = req.body;
+    const userId = req.user.userId;
+    const orderValue = qty * price;
 
-    // 1️⃣ Save order (user-specific)
-    const newOrder = new OrdersModel({
-      userId: req.user.userId,
-      name,
-      qty,
-      price,
-      mode,
-    });
-    await newOrder.save();
+    const funds = await FundsModel.findOne({ userId });
+    if (!funds) {
+      return res.status(400).json({ error: "Funds account not found" });
+    }
 
-    // 2️⃣ Find holding for THIS USER ONLY
-    let holding = await HoldingsModel.findOne({
-      userId: req.user.userId,
-      name,
-    });
+    let holding = await HoldingsModel.findOne({ userId, name });
 
+    // BUY FLOW
     if (mode === "BUY") {
+      if (funds.availableBalance < orderValue) {
+        return res.status(400).json({ error: "Insufficient balance" });
+      }
+
+      // update funds
+      funds.investedAmount += orderValue;
+      funds.availableBalance -= orderValue;
+      await funds.save();
+
+      // update holdings
       if (holding) {
         const totalQty = holding.qty + qty;
-        const newAvg = (holding.qty * holding.avg + qty * price) / totalQty;
-
+        holding.avg = (holding.qty * holding.avg + qty * price) / totalQty;
         holding.qty = totalQty;
-        holding.avg = newAvg;
         holding.price = price;
-
         await holding.save();
       } else {
         await HoldingsModel.create({
-          userId: req.user.userId,
+          userId,
           name,
           qty,
           avg: price,
@@ -62,6 +63,7 @@ module.exports.newOrder = async (req, res) => {
       }
     }
 
+    // SELL FLOW
     if (mode === "SELL") {
       if (!holding) {
         return res.status(400).json({ error: "No holdings available to sell" });
@@ -74,16 +76,27 @@ module.exports.newOrder = async (req, res) => {
       const remainingQty = holding.qty - qty;
 
       if (remainingQty === 0) {
-        await HoldingsModel.deleteOne({
-          userId: req.user.userId,
-          name,
-        });
+        await HoldingsModel.deleteOne({ userId, name });
       } else {
         holding.qty = remainingQty;
         holding.price = price;
         await holding.save();
       }
+
+      funds.investedAmount -= orderValue;
+      funds.availableBalance += orderValue;
+      await funds.save();
     }
+
+    // SAVE ORDER LAST
+    await OrdersModel.create({
+      userId,
+      name,
+      qty,
+      price,
+      mode,
+      status: "COMPLETED",
+    });
 
     res.json({ message: "Order placed successfully" });
   } catch (err) {

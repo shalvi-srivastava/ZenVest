@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 // import { holdings } from "../data/data";
 
-function Holdings() {
+function Holdings({refreshKey}) {
   const [holdings, setHoldings] = useState([]);
   const fetchHoldings = () => {
     axios
@@ -18,7 +18,7 @@ function Holdings() {
 
   useEffect(() => {
     fetchHoldings();
-  }, []);
+  }, [refreshKey]);
 
   // EMPTY STATE
   if (holdings.length === 0) {

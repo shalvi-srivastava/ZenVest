@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-function Funds() {
+function Funds({refreshKey}) {
   const [funds, setFunds] = useState({
     totalBalance: 0,
     investedAmount: 0,
@@ -17,7 +17,7 @@ function Funds() {
       .then((res) => {
         setFunds(res.data);
       });
-  }, []);
+  }, [{refreshKey}]);
 
   const { totalBalance, investedAmount, availableBalance } = funds;
 

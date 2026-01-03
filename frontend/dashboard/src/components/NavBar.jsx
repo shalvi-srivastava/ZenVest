@@ -3,8 +3,18 @@ import { NavLink } from "react-router-dom";
 const NavBar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     window.location.href = window.location.origin + "/";
   };
+  const user = JSON.parse(localStorage.getItem("user"));
+  
+  const initials =
+    user?.name
+      ?.split(" ")
+      .map((w) => w[0])
+      .join("")
+      .toUpperCase() || "U";
+
   return (
     <nav className="navbar navbar-expand-lg  border-bottom">
       <div className="container p-2">
@@ -24,7 +34,7 @@ const NavBar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="zenvestNavbar">
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0 ">
             <li className="nav-item">
               <NavLink className="nav-link" to="/">
@@ -63,18 +73,19 @@ const NavBar = () => {
                 className="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center"
                 style={{ width: 32, height: 32 }}
               >
-                ZU
+                {initials || "U"}
               </div>
-              <span className="small">USERID</span>
+              {/* <span className="small">USERID</span> */}
             </button>
 
             <ul className="dropdown-menu dropdown-menu-end">
-              <li
-                className="dropdown-item"
-                style={{ cursor: "pointer" }}
-                onClick={handleLogout}
-              >
-                Logout
+              <li>
+                <button
+                  className="dropdown-item text-danger"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
               </li>
             </ul>
           </div>

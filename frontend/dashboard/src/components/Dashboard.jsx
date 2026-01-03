@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import WatchList from "./WatchList";
 import Summary from "./Summary/Summary";
@@ -7,22 +8,29 @@ import Positions from "./Positions";
 import Funds from "./Funds";
 
 function Dashboard() {
-  return (
-    <>
-      <div className="dashboard-container d-flex">
-        <WatchList />
+  const [refreshKey, setRefreshKey] = useState(0);
 
-        <div className="content flex-grow-1 p-4">
-          <Routes>
-            <Route path="/" element={<Summary />} />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/holdings" element={<Holdings />} />
-            <Route path="/positions" element={<Positions />} />
-            <Route path="/funds" element={<Funds />} />
-          </Routes>
-        </div>
+  const refreshDashboard = () => {
+    setRefreshKey((prev) => prev + 1);
+  };
+
+  return (
+    <div className="dashboard-container d-flex">
+      <WatchList onOrderSuccess={refreshDashboard} />
+
+      <div className="content flex-grow-1 p-4">
+        <Routes>
+          <Route path="/" element={<Summary refreshKey={refreshKey} />} />
+          <Route path="/orders" element={<Orders refreshKey={refreshKey} />} />
+          <Route
+            path="/holdings"
+            element={<Holdings refreshKey={refreshKey} />}
+          />
+          <Route path="/positions" />
+          <Route path="/funds" element={<Funds refreshKey={refreshKey} />} />
+        </Routes>
       </div>
-    </>
+    </div>
   );
 }
 
