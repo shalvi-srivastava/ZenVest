@@ -25,42 +25,40 @@ module.exports.newOrder = async (req, res) => {
   try {
     const { name, qty, price, mode } = req.body;
 
-    console.log("REQ BODY 👉", req.body);
-
-    // 1️⃣ Save order
+    // 1️⃣ Save order (user-specific)
     const newOrder = new OrdersModel({
+      userId: req.user.userId,
       name,
       qty,
       price,
       mode,
     });
-
     await newOrder.save();
 
-    // 2️⃣ Find existing holding
-    let holding = await HoldingsModel.findOne({ name });
+    // 2️⃣ Find holding for THIS USER ONLY
+    let holding = await HoldingsModel.findOne({
+      userId: req.user.userId,
+      name,
+    });
 
     if (mode === "BUY") {
       if (holding) {
-        // weighted average calculation
         const totalQty = holding.qty + qty;
         const newAvg = (holding.qty * holding.avg + qty * price) / totalQty;
 
         holding.qty = totalQty;
         holding.avg = newAvg;
-        holding.price = price; // latest price
+        holding.price = price;
 
         await holding.save();
       } else {
-        // first time buy
-        const newHolding = new HoldingsModel({
+        await HoldingsModel.create({
+          userId: req.user.userId,
           name,
           qty,
           avg: price,
           price,
         });
-
-        await newHolding.save();
       }
     }
 
@@ -76,8 +74,10 @@ module.exports.newOrder = async (req, res) => {
       const remainingQty = holding.qty - qty;
 
       if (remainingQty === 0) {
-        // sold everything
-        await HoldingsModel.deleteOne({ name });
+        await HoldingsModel.deleteOne({
+          userId: req.user.userId,
+          name,
+        });
       } else {
         holding.qty = remainingQty;
         holding.price = price;
@@ -85,7 +85,7 @@ module.exports.newOrder = async (req, res) => {
       }
     }
 
-    res.json({ message: "Order placed & holdings updated successfully" });
+    res.json({ message: "Order placed successfully" });
   } catch (err) {
     console.error("ORDER ERROR ❌", err);
     res.status(500).json({ error: "Order placement failed" });

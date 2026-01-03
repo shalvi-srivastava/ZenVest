@@ -12,7 +12,6 @@ const {
 } = require("../controllers/dashboard");
 router.route("/orders").get(authMiddleware, wrapAsync(fetchOrders));
 router.route("/holdings").get(authMiddleware, wrapAsync(fetchHoldings));
-// router.route("/positions").get(authMiddleware, wrapAsync(fetchPositions));
 router.route("/funds").get(authMiddleware, wrapAsync(fetchFunds));
 router.route("/newOrder").post(authMiddleware, wrapAsync(newOrder));
 

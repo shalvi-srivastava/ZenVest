@@ -19,12 +19,20 @@ function TradeModal({ show, onClose, stock, type, marketPrice }) {
     try {
       setLoading(true);
 
-      await axios.post("http://localhost:5000/newOrder", {
-        name: stock,
-        qty: qty,
-        price: price,
-        mode: type,
-      });
+      await axios.post(
+        "/dashboard/api/newOrder",
+        {
+          name: stock,
+          qty: qty,
+          price: price,
+          mode: type,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
       setLoading(false);
       onClose();
