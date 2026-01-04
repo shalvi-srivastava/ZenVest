@@ -26,7 +26,7 @@ function Dashboard() {
             path="/holdings"
             element={<Holdings refreshKey={refreshKey} />}
           />
-          <Route path="/positions" />
+          <Route path="/positions" element={<Positions />} />
           <Route path="/funds" element={<Funds refreshKey={refreshKey} />} />
         </Routes>
       </div>

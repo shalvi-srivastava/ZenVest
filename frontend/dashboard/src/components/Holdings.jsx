@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-// import { holdings } from "../data/data";
+import { VerticalBar } from "./VerticalBar";
 
-function Holdings({refreshKey}) {
+function Holdings({ refreshKey }) {
   const [holdings, setHoldings] = useState([]);
   const fetchHoldings = () => {
     axios
@@ -19,6 +19,16 @@ function Holdings({refreshKey}) {
   useEffect(() => {
     fetchHoldings();
   }, [refreshKey]);
+  const chartData = {
+    labels: holdings.map((stock) => stock.name),
+    datasets: [
+      {
+        label: "Invested Value (₹)",
+        data: holdings.map((stock) => stock.avg * stock.qty),
+        backgroundColor: "rgba(53, 162, 235, 0.6)",
+      },
+    ],
+  };
 
   // EMPTY STATE
   if (holdings.length === 0) {
@@ -40,8 +50,8 @@ function Holdings({refreshKey}) {
   return (
     <div className="container-fluid holdings-section">
       <h2 className="mb-4 text-center">Holdings</h2>
-
-      <div className="card shadow-sm table-card text-center mx-5">
+      <VerticalBar data={chartData} />
+      <div className="card shadow-sm table-card text-center mx-5 mt-5">
         <div className="card-body p-2">
           <table className="table table-hover mb-0">
             <thead>
@@ -67,7 +77,8 @@ function Holdings({refreshKey}) {
                 const currentValue = stock.price * stock.qty;
 
                 const pnl = currentValue - investedValue;
-                const netPercent = (pnl / investedValue) * 100;
+                const netPercent =
+                  investedValue > 0 ? (pnl / investedValue) * 100 : 0;
 
                 return (
                   <tr key={stock.name}>

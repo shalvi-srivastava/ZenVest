@@ -2,12 +2,6 @@ import { useState, useEffect } from "react";
 import TradeModal from "./TradeModal";
 import { watchlist } from "../data/data";
 import { Tooltip, Grow } from "@mui/material";
-import {
-  ShoppingCartOutlined,
-  SellOutlined,
-  BarChartOutlined,
-  MoreHoriz,
-} from "@mui/icons-material";
 
 function WatchList({ onOrderSuccess }) {
   const [showModal, setShowModal] = useState(false);
@@ -61,21 +55,6 @@ function WatchList({ onOrderSuccess }) {
       }}
       className="watchlist-container"
     >
-      <div className="search-container mb-2">
-        <form className="d-none d-lg-flex mx-auto search-bar">
-          <input
-            className="form-control"
-            type="search"
-            placeholder="Search stocks..."
-            aria-label="Search"
-          />
-          <button className="btn" type="submit">
-            <i className="fa-solid fa-magnifying-glass"></i>
-          </button>
-        </form>
-        {/* <span className="counts">{watchlist.length}</span> */}
-      </div>
-
       {watchlist.map((stock) => (
         <div
           key={stock.name}
@@ -110,17 +89,6 @@ function WatchList({ onOrderSuccess }) {
                   Sell
                 </button>
               </Tooltip>
-
-              <Tooltip title="Analytics" arrow TransitionComponent={Grow}>
-                <button className="action-btn">
-                  <BarChartOutlined fontSize="small" />
-                </button>
-              </Tooltip>
-              <Tooltip title="More" arrow TransitionComponent={Grow}>
-                <button className="action-btn">
-                  <MoreHoriz fontSize="small" />
-                </button>
-              </Tooltip>
             </div>
 
             {/* RIGHT: Price + % */}
@@ -139,7 +107,6 @@ function WatchList({ onOrderSuccess }) {
         </div>
       ))}
 
-      {/* ✅ RESIZER — ONLY ONCE, MAP KE BAHAR */}
       <div
         onMouseDown={() => setIsResizing(true)}
         style={{
