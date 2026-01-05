@@ -1,9 +1,6 @@
 import { UserPlus, LineChart, Rocket } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
-export default function Guide() {
-  const navigate = useNavigate();
-
+export default function Guide({ onCTAclick }) {
   return (
     <section className="guide-section">
       <div className="container text-center p-2">
@@ -16,7 +13,7 @@ export default function Guide() {
         <div className="guide-steps three-steps">
           <div className="guide-card">
             <UserPlus className="guide-icon" size={32} />
-            <span className="step-number">01</span>
+            <span className="step-number px-3">01</span>
             <h3>Sign Up</h3>
             <p>
               Create your account in minutes. Set your preferences and financial
@@ -26,7 +23,7 @@ export default function Guide() {
 
           <div className="guide-card">
             <LineChart className="guide-icon" size={32} />
-            <span className="step-number">02</span>
+            <span className="step-number px-3">02</span>
             <h3>Explore Stocks</h3>
             <p>
               Discover stocks, track market trends, and learn before you invest
@@ -36,7 +33,7 @@ export default function Guide() {
 
           <div className="guide-card">
             <Rocket className="guide-icon" size={32} />
-            <span className="step-number">03</span>
+            <span className="step-number px-3">03</span>
             <h3>Start Investing</h3>
             <p>
               Make informed decisions and begin your investment journey with
@@ -47,7 +44,9 @@ export default function Guide() {
       </div>
 
       <div className="container text-center p-2">
-        <button className="btn btn-outline-primary" onClick={() => navigate("/signup")}>Get Started Now</button>
+        <button className="btn btn-outline-primary" onClick={onCTAclick}>
+          Get Started Now
+        </button>
       </div>
     </section>
   );

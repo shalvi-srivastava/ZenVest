@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
-export default function LoginSection() {
+export default function LoginSection({ onSwitch }) {
   const [formError, setFormError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -19,35 +17,13 @@ export default function LoginSection() {
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      window.location.assign(window.location.origin + "/dashboard");
 
-      // navigate("/dashboard"); // 👈 THIS LINE ONLY
+      window.location.assign(window.location.origin + "/dashboard");
     } catch (err) {
       console.log("LOGIN ERROR 👉", err);
-      console.log("RESPONSE 👉", err.response);
-      console.log("MESSAGE 👉", err.response?.data?.message);
-
       setFormError(err.response?.data?.message || "Invalid email or password");
     }
   };
-
-  // const handleLogin = async (e) => {
-  //   e.preventDefault();
-  //   // setFormError("");
-
-  //   try {
-  //     const res = await axios.post("http://localhost:5000/auth/login", {
-  //       email,
-  //       password,
-  //     });
-
-  //     localStorage.setItem("token", res.data.token);
-  //     navigate("/dashboard");
-  //   } catch (err) {
-  //     console.log("LOGIN ERROR", err.response?.data);
-  //     setFormError(err.response?.data?.message || "Invalid credentials");
-  //   }
-  // };
 
   return (
     <section className="signup-section">
@@ -69,7 +45,7 @@ export default function LoginSection() {
         <div className="signup-card">
           <h3>Login to your account</h3>
 
-          <form noValidate className="needs-validation" onSubmit={handleLogin}>
+          <form noValidate onSubmit={handleLogin}>
             <input
               type="email"
               placeholder="Email address"
@@ -77,13 +53,7 @@ export default function LoginSection() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {/* {formError && (
-              <div className="invalid-feedback" style={{ display: "block" }}>
-                {formError.toLowerCase().includes("email")
-                  ? formError
-                  : "Please enter a valid email address."}
-              </div>
-            )} */}
+
             <input
               type="password"
               placeholder="Password"
@@ -91,6 +61,7 @@ export default function LoginSection() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+
             {formError && (
               <div className="invalid-feedback d-block">{formError}</div>
             )}
@@ -99,7 +70,10 @@ export default function LoginSection() {
           </form>
 
           <span className="signup-text">
-            New here? <Link to="/signup">Create an account</Link>
+            New here?{" "}
+            <a className="signup-link" onClick={onSwitch}>
+              Create an account
+            </a>
           </span>
         </div>
       </div>

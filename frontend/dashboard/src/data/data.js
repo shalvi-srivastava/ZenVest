@@ -53,6 +53,24 @@ export const watchlist = [
     percent: "+1.04%",
     isDown: false,
   },
+  {
+    name: "HDFCBANK",
+    price: 1689.3,
+    percent: "-0.48%",
+    isDown: true,
+  },
+  {
+    name: "ICICIBANK",
+    price: 1021.6,
+    percent: "+0.87%",
+    isDown: false,
+  },
+  {
+    name: "ADANIENT",
+    price: 2845.2,
+    percent: "+2.11%",
+    isDown: false,
+  },
 ];
 
 // holdings

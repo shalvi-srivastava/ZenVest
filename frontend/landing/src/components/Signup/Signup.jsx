@@ -1,28 +1,34 @@
-import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import {  showSuccess } from "../../utils/toast";
 
-export default function SignupSection() {
+export default function SignupSection({ onSwitch }) {
   const [formError, setFormError] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setFormError("");
 
     try {
-      await axios.post("/auth/signup", {
+      setLoading(true);
+
+      const res = await axios.post("/auth/signup", {
         name,
         email,
         password,
       });
 
-      window.location.href = "/login";
+      showSuccess(res.data.message);
+      onSwitch();
     } catch (err) {
-      console.log(err);
       setFormError(err.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -46,7 +52,7 @@ export default function SignupSection() {
         <div className="signup-card">
           <h3>Create account</h3>
 
-          <form onSubmit={handleSignup} noValidate className="needs-validation">
+          <form onSubmit={handleSignup} noValidate>
             <input
               type="text"
               placeholder="Full name"
@@ -62,13 +68,7 @@ export default function SignupSection() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {/* {formError && (
-              <div className="invalid-feedback" style={{ display: "block" }}>
-                {formError.toLowerCase().includes("email")
-                  ? formError
-                  : "Please enter a valid email address."}
-              </div>
-            )} */}
+
             {formError && (
               <div className="invalid-feedback d-block">{formError}</div>
             )}
@@ -81,11 +81,16 @@ export default function SignupSection() {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <button type="submit">Get started</button>
+            <button disabled={loading} type="submit">
+              {loading ? "Creating account..." : "Sign Up"}
+            </button>
           </form>
 
           <span className="login-text">
-            Already have an account? <Link to="/login">Log in</Link>
+            Already have an account?{" "}
+            <a type="button" className="btn btn-link p-0" onClick={onSwitch}>
+              Log in
+            </a>
           </span>
         </div>
       </div>

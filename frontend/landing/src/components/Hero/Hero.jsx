@@ -1,9 +1,6 @@
-import { useNavigate } from "react-router-dom";
-
-export default function Hero() {
-  const navigate = useNavigate();
+export default function Hero({ onCTAclick }) {
   return (
-    <section className="hero-section">
+    <section className="hero-section " style={{ padding: "0" }}>
       <div className="container p-2 text-center heading-subheading">
         <h1>
           Invest smart , <span>Grow smarter</span>
@@ -16,14 +13,14 @@ export default function Hero() {
       <div className="container text-center p-2">
         <button
           className="btn btn-outline-primary"
-          onClick={() => navigate("/signup")}
+          onClick={onCTAclick}
         >
           Get Started Now
         </button>
       </div>
       <div className="container p-2 text-center">
         <img
-          src="/assets/images/image.png"
+          src="/assets/images/hero-img.png"
           alt="Hero Image"
           className="img-fluid"
         />

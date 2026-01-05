@@ -77,7 +77,7 @@ export default function Summary({refreshKey}) {
       <div className="card-grid">
         <div className="summary-card ">
           <BalanceCard
-            availableBalance={funds.availableBalance}
+            availableBalance={funds.availableBalance || 0}
             investedAmount={investedAmount}
           />
         </div>

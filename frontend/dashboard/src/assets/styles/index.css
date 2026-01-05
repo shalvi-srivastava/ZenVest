@@ -156,6 +156,10 @@ h2 {
     color: var(--text-muted);
 }
 
+.watchlist-container h3 {
+    color: var(--text-heading);
+}
+
 .watchlist-item:hover {
     background-color: #020024;
 }
@@ -294,15 +298,42 @@ h2 {
 
 .watchlist-container {
     min-width: 360px;
+    flex-shrink: 0;
+}
+nav.navbar .container {
+    gap: 2rem;
 }
 
-.search-bar {
-    background-color: #fff;
-    border: 1px solid var(--accent);
-    border-radius: 10px;
-    padding: 0.2rem 0.4rem;
-    width: inherit;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    display: flex;
-    align-items: center;
+@media (max-width: 768px) {
+    nav.navbar .container {
+        gap: 0;
+    }
+}
+.navbar-brand img {
+    height: 36px;
+    width: auto;
+}
+.navbar-nav .nav-link {
+    color: var(--text);
+    transition: color 0.3s ease, background-color 0.2s ease;
+    border-radius: 6px;
+}
+@media (max-width: 768px) {
+    .navbar-nav {
+        padding-top: 12px;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 10px 12px;
+    }
+
+    .navbar-nav .nav-link.active {
+        background-color: rgba(255, 255, 255, 0.08);
+    }
+}
+nav.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    backdrop-filter: blur(8px);
 }

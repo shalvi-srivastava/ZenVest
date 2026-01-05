@@ -18,12 +18,36 @@ module.exports.fetchOrders = async (req, res) => {
 };
 
 module.exports.fetchFunds = async (req, res) => {
-  let funds = await FundsModel.findOne({ userId: req.user.userId });
+  const userId = req.user.userId;
+
+  let funds = await FundsModel.findOne({ userId });
+
+  if (!funds) {
+    funds = await FundsModel.create({
+      userId,
+    });
+  }
+
   res.json(funds);
 };
+
 module.exports.newOrder = async (req, res) => {
   try {
     const { name, qty, price, mode } = req.body;
+    if (!name || !qty || !price || !mode) {
+      return res.status(400).json({ error: "Invalid order data" });
+    }
+
+    if (qty <= 0 || price <= 0) {
+      return res
+        .status(400)
+        .json({ error: "Quantity and price must be positive" });
+    }
+
+    if (!["BUY", "SELL"].includes(mode)) {
+      return res.status(400).json({ error: "Invalid order type" });
+    }
+
     const userId = req.user.userId;
     const orderValue = qty * price;
 

@@ -1,4 +1,7 @@
-const { Model, default: mongoose } = require("mongoose");
-const { ordersSchema, fundsSchema } = require("../schemas/FundsSchema");
-const FundsModel = mongoose.model("Fund", fundsSchema);
+const mongoose = require("mongoose");
+const { fundsSchema } = require("../schemas/FundsSchema");
+
+const FundsModel =
+  mongoose.models.Fund || mongoose.model("Fund", fundsSchema);
+
 module.exports = { FundsModel };

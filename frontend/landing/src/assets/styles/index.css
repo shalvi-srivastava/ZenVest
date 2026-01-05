@@ -66,7 +66,9 @@ body {
   overflow-x: hidden;
 }
 
-section {
+.hero-section,
+.guide-section,
+.signup-section {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: var(--space-lg) var(--space-md);
@@ -83,7 +85,7 @@ nav.navbar {
 }
 
 nav.navbar .container {
-  gap: 40rem;
+  gap: 25rem;
 }
 
 @media (max-width: 768px) {
@@ -104,6 +106,10 @@ nav.navbar .container {
   color: var(--text);
   /* font-weight: 500; */
   transition: color 0.3s ease, transform 0.2s ease;
+}
+
+ul.navbar-nav {
+  gap: 2rem;
 }
 
 .navbar-nav .nav-link:hover {
@@ -327,7 +333,8 @@ nav.navbar .container {
   box-shadow: var(--shadow-glow);
 }
 
-.login-text,.signup-text {
+.login-text,
+.signup-text {
   display: block;
   margin-top: var(--space-sm);
   font-size: 0.9rem;
@@ -340,6 +347,17 @@ nav.navbar .container {
 }
 
 .login-text a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.signup-text a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.signup-text a:hover {
+  cursor: pointer;
   text-decoration: underline;
 }
 
@@ -362,4 +380,34 @@ nav.navbar .container {
 .heading-subheading h1,
 h2 {
   color: var(--text-heading);
+}
+
+
+
+@media (max-width: 768px) {
+  nav.navbar .container {
+    gap: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-nav {
+    padding-top: 12px;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 10px 12px;
+    border-radius: 6px;
+  }
+
+  .navbar-nav .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
+nav.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  backdrop-filter: blur(8px);
 }

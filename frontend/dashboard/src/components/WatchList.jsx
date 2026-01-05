@@ -18,36 +18,10 @@ function WatchList({ onOrderSuccess }) {
 
   const closeTradeModal = () => setShowModal(false);
 
-  const [width, setWidth] = useState(280);
-  const [isResizing, setIsResizing] = useState(false);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (!isResizing) return;
-
-      setWidth(() => {
-        const newWidth = e.clientX;
-        if (newWidth < 200) return 200;
-        if (newWidth > 420) return 420;
-        return newWidth;
-      });
-    };
-
-    const handleMouseUp = () => setIsResizing(false);
-
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [isResizing]);
-
   return (
     <div
       style={{
-        width: `${width}px`,
+        width: "360px",
         borderRight: "1px solid #fff",
         padding: "12px",
         minHeight: "100vh",
@@ -55,6 +29,7 @@ function WatchList({ onOrderSuccess }) {
       }}
       className="watchlist-container"
     >
+      <h3 className="text-center mb-3 mt-3">Explore Stocks</h3>
       {watchlist.map((stock) => (
         <div
           key={stock.name}
@@ -107,24 +82,6 @@ function WatchList({ onOrderSuccess }) {
         </div>
       ))}
 
-      <div
-        onMouseDown={() => setIsResizing(true)}
-        style={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-          width: "4px",
-          height: "100%",
-          cursor: "col-resize",
-          backgroundColor: "transparent",
-        }}
-        onMouseEnter={(e) =>
-          (e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.2)")
-        }
-        onMouseLeave={(e) =>
-          (e.currentTarget.style.backgroundColor = "transparent")
-        }
-      />
       <TradeModal
         show={showModal}
         onClose={closeTradeModal}

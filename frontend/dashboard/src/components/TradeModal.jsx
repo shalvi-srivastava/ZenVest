@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { showError, showSuccess } from "../utils/toast";
 
 function TradeModal({
   show,
@@ -26,7 +27,7 @@ function TradeModal({
     try {
       setLoading(true);
 
-      await axios.post(
+      const res = await axios.post(
         "/dashboard/api/newOrder",
         {
           name: stock,
@@ -41,14 +42,18 @@ function TradeModal({
         }
       );
 
-      onOrderSuccess && onOrderSuccess(); // 🔥 FIX
+      // ✅ SUCCESS
+      showSuccess(res.data.message);
+      onOrderSuccess && onOrderSuccess();
       onClose();
     } catch (err) {
-      if (err.response && err.response.data?.error) {
-        alert(err.response.data.error);
-      } else {
-        alert("Order failed");
-      }
+      // ❌ ERROR
+      const msg =
+        err.response?.data?.message ||
+        err.response?.data?.error ||
+        "Order failed";
+
+      showError(msg);
     } finally {
       setLoading(false);
     }

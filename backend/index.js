@@ -9,6 +9,8 @@ const app = express();
 const port = process.env.PORT || 5000;
 const mongoUrl = process.env.MONGO_URL;
 
+const ExpressError = require("./utils/ExpressError.js");
+
 const dashboardRouter = require("./routes/dashboard.js");
 const authRouter = require("./routes/user.js");
 
@@ -32,7 +34,6 @@ app.use("/dashboard/api", dashboardRouter);
 
 // ✅ DASHBOARD FIRST (MOST SPECIFIC)
 // Dashboard static
-// Dashboard static
 app.use(
   "/dashboard",
   express.static(path.join(__dirname, "../frontend/dashboard/dist"))
@@ -50,7 +51,16 @@ app.use(express.static(path.join(__dirname, "../frontend/landing/dist")));
 app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/landing/dist/index.html"));
 });
+app.all("/*splat", (req, res, next) => {
+  next(new ExpressError(404, "PAGE NOT FOUND !"));
+});
 
+// Global error handler
+app.use((err, req, res, next) => {
+  const { statusCode = 500, message = "Something went wrong!" } = err;
+  console.error(err);
+  res.status(statusCode).send(`${statusCode} - ${message}`);
+});
 // ---------------- START ----------------
 app.listen(port, () => {
   console.log("server running on port", port);
