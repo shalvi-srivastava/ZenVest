@@ -1,13 +1,8 @@
-// import { orders } from "../data/data";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-function Orders({refreshKey}) {
+function Orders({ refreshKey }) {
   const [orders, setOrders] = useState([]);
-  // useEffect(() => {
-  //   axios.get("/dashboard/api/orders").then((res) => {
-  //     setOrders(res.data);
-  //   });
-  // }, []); // 👈 THIS LINE IS CRUCIAL
+
   useEffect(() => {
     axios
       .get("/dashboard/api/orders", {
@@ -30,12 +25,6 @@ function Orders({refreshKey}) {
       month: "short",
       year: "numeric",
     });
-  };
-
-  const statusColor = {
-    COMPLETED: "bg-success",
-    PENDING: "bg-warning",
-    CANCELLED: "bg-danger",
   };
 
   if (orders.length === 0) {
@@ -68,7 +57,6 @@ function Orders({refreshKey}) {
                 <th>Type</th>
                 <th>Qty</th>
                 <th>Price</th>
-                {/* <th>Status</th> */}
                 <th>Date</th>
               </tr>
             </thead>
@@ -88,11 +76,6 @@ function Orders({refreshKey}) {
                   </td>
                   <td>{order.qty}</td>
                   <td>₹{order.price}</td>
-                  {/* <td>
-                    <span className={`badge ${statusColor[order.status]}`}>
-                      {order.status}
-                    </span>
-                  </td> */}
 
                   <td>{formatDate(order.date)}</td>
                 </tr>

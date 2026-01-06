@@ -13,7 +13,7 @@ const fundsSchema = new mongoose.Schema(
     totalBalance: {
       type: Number,
       required: true,
-      default: 0,
+      default: 10000,
     },
 
     investedAmount: {

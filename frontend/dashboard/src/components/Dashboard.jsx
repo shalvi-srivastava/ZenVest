@@ -18,7 +18,7 @@ function Dashboard() {
     <div className="dashboard-container d-flex">
       <WatchList onOrderSuccess={refreshDashboard} />
 
-      <div className="content flex-grow-1 p-4">
+      <div className="content flex-grow-1 p-4 dashboard-content">
         <Routes>
           <Route path="/" element={<Summary refreshKey={refreshKey} />} />
           <Route path="/orders" element={<Orders refreshKey={refreshKey} />} />

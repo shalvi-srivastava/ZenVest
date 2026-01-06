@@ -76,9 +76,6 @@ function TradeModal({
               style={{ color: "red" }}
               onClick={onClose}
             ></button>
-            {/* <button onClick={onClose} className="close-btn">
-              ✕
-            </button> */}
           </div>
 
           <div className="modal-body">

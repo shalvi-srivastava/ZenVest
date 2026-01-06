@@ -29,6 +29,7 @@ app.use(express.json());
 // ---------------- API ROUTES ----------------
 app.use("/auth", authRouter);
 app.use("/dashboard/api", dashboardRouter);
+app.use("/admin", require("./routes/admin"));
 
 // ---------------- FRONTEND SERVING ----------------
 

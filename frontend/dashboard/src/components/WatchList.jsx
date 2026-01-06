@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import TradeModal from "./TradeModal";
 import { watchlist } from "../data/data";
 import { Tooltip, Grow } from "@mui/material";

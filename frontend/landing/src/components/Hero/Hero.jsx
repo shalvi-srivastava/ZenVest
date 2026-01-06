@@ -1,6 +1,6 @@
 export default function Hero({ onCTAclick }) {
   return (
-    <section className="hero-section " style={{ padding: "0" }}>
+    <section className="hero-section ">
       <div className="container p-2 text-center heading-subheading">
         <h1>
           Invest smart , <span>Grow smarter</span>
@@ -11,10 +11,7 @@ export default function Hero({ onCTAclick }) {
         </p>
       </div>
       <div className="container text-center p-2">
-        <button
-          className="btn btn-outline-primary"
-          onClick={onCTAclick}
-        >
+        <button className="btn btn-outline-primary" onClick={onCTAclick}>
           Get Started Now
         </button>
       </div>

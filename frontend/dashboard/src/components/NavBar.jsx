@@ -7,7 +7,7 @@ const NavBar = () => {
     window.location.href = window.location.origin + "/";
   };
   const user = JSON.parse(localStorage.getItem("user"));
-  
+
   const initials =
     user?.name
       ?.split(" ")
@@ -75,7 +75,6 @@ const NavBar = () => {
               >
                 {initials || "U"}
               </div>
-              {/* <span className="small">USERID</span> */}
             </button>
 
             <ul className="dropdown-menu dropdown-menu-end">

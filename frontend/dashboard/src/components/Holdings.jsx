@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import axios from "axios";
 import { VerticalBar } from "./VerticalBar";
 
@@ -72,7 +72,6 @@ function Holdings({ refreshKey }) {
                 const curValue = stock.price * stock.qty;
                 const isProfit = curValue - stock.avg * stock.qty >= 0.0;
                 const profClass = isProfit ? "profit" : "loss";
-                const dayClass = stock.isLoss ? "loss" : "profit";
                 const investedValue = stock.avg * stock.qty;
                 const currentValue = stock.price * stock.qty;
 
