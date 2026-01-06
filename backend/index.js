@@ -6,7 +6,7 @@ const cors = require("cors");
 const path = require("path");
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 const mongoUrl = process.env.MONGO_URL;
 
 const ExpressError = require("./utils/ExpressError.js");
@@ -40,18 +40,11 @@ app.use(
   express.static(path.join(__dirname, "../frontend/dashboard/dist"))
 );
 
-// Dashboard SPA fallback
-app.get(/^\/dashboard(\/.*)?$/, (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dashboard/dist/index.html"));
-});
+
 
 // Landing static
 app.use(express.static(path.join(__dirname, "../frontend/landing/dist")));
 
-// Landing SPA fallback
-app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/landing/dist/index.html"));
-});
 app.all("/*splat", (req, res, next) => {
   next(new ExpressError(404, "PAGE NOT FOUND !"));
 });
