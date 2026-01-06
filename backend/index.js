@@ -36,23 +36,23 @@ app.get("/", (req, res) => {
   res.send("ZenVest backend is live 🚀");
 });
 
-// ---------------- FRONTEND SERVING ----------------
+// // ---------------- FRONTEND SERVING ----------------
 
-// ✅ DASHBOARD FIRST (MOST SPECIFIC)
-// Dashboard static
-app.use(
-  "/dashboard",
-  express.static(path.join(__dirname, "../frontend/dashboard/dist"))
-);
+// // ✅ DASHBOARD FIRST (MOST SPECIFIC)
+// // Dashboard static
+// app.use(
+//   "/dashboard",
+//   express.static(path.join(__dirname, "../frontend/dashboard/dist"))
+// );
 
 
 
-// Landing static
-app.use(express.static(path.join(__dirname, "../frontend/landing/dist")));
+// // Landing static
+// app.use(express.static(path.join(__dirname, "../frontend/landing/dist")));
 
-app.all("/*splat", (req, res, next) => {
-  next(new ExpressError(404, "PAGE NOT FOUND !"));
-});
+// app.all("/*splat", (req, res, next) => {
+//   next(new ExpressError(404, "PAGE NOT FOUND !"));
+// });
 
 // Global error handler
 app.use((err, req, res, next) => {
