@@ -10,7 +10,7 @@ export default function LoginSection({ onSwitch }) {
     e.preventDefault();
 
     try {
-      const res = await axios.post("/auth/login", {
+      const res = await axios.post("/api/auth/login", {
         email,
         password,
       });

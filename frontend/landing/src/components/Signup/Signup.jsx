@@ -17,7 +17,7 @@ export default function SignupSection({ onSwitch }) {
     try {
       setLoading(true);
 
-      const res = await axios.post("/auth/signup", {
+      const res = await axios.post("/api/auth/signup", {
         name,
         email,
         password,

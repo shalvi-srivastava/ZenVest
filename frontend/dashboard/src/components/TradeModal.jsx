@@ -28,7 +28,7 @@ function TradeModal({
       setLoading(true);
 
       const res = await axios.post(
-        "/dashboard/api/newOrder",
+        "/api/dashboard/newOrder",
         {
           name: stock,
           qty,

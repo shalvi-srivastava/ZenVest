@@ -9,7 +9,7 @@ function Funds({ refreshKey }) {
 
   useEffect(() => {
     axios
-      .get("/dashboard/api/funds", {
+      .get("/api/dashboard/funds", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

@@ -17,8 +17,8 @@ app.use(cors());
 app.use(express.json());
 
 // routes
-app.use("/auth", require("./routes/user"));
-app.use("/dashboard/api", require("./routes/dashboard"));
+app.use("/api/auth", require("./routes/user"));
+app.use("/api/dashboard", require("./routes/dashboard"));
 app.use("/admin", require("./routes/admin"));
 
 // ✅ health check

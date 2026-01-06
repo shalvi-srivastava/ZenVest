@@ -5,7 +5,7 @@ function Orders({ refreshKey }) {
 
   useEffect(() => {
     axios
-      .get("/dashboard/api/orders", {
+      .get("/api/dashboard/orders", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
