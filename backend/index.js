@@ -32,6 +32,10 @@ app.use("/auth", authRouter);
 app.use("/dashboard/api", dashboardRouter);
 app.use("/admin", require("./routes/admin"));
 
+app.get("/", (req, res) => {
+  res.send("ZenVest backend is live 🚀");
+});
+
 // ---------------- FRONTEND SERVING ----------------
 
 // ✅ DASHBOARD FIRST (MOST SPECIFIC)
