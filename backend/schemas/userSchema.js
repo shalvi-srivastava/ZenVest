@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const { FundsModel } = require("../models/FundsModel");
 const { OrdersModel } = require("../models/OrdersModel");
 const { HoldingsModel } = require("../models/HoldingsModel");
-// const { PositionsModel } = require("../models/PositionsModel");
 
 const userSchema = new mongoose.Schema(
   {
@@ -30,7 +29,6 @@ userSchema.pre("deleteOne", { document: true }, async function () {
   await FundsModel.deleteOne({ userId });
   await OrdersModel.deleteMany({ userId });
   await HoldingsModel.deleteMany({ userId });
-  // await PositionsModel.deleteMany({ userId });
 
 });
 userSchema.pre("findOneAndDelete", async function () {
@@ -42,7 +40,6 @@ userSchema.pre("findOneAndDelete", async function () {
   await FundsModel.deleteOne({ userId });
   await OrdersModel.deleteMany({ userId });
   await HoldingsModel.deleteMany({ userId });
-  // await PositionsModel.deleteMany({ userId });
 
 });
 

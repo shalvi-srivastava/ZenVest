@@ -1,15 +1,11 @@
 const { FundsModel } = require("../models/FundsModel");
 const { HoldingsModel } = require("../models/HoldingsModel");
 const { OrdersModel } = require("../models/OrdersModel");
-// const { PositionsModel } = require("../models/PositionsModel");
 module.exports.fetchHoldings = async (req, res) => {
   let allHoldings = await HoldingsModel.find({ userId: req.user.userId });
   res.json(allHoldings);
 };
-// module.exports.fetchPositions = async (req, res) => {
-//   let allPositions = await PositionsModel.find({ userId: req.user.userId });
-//   res.json(allPositions);
-// };
+
 module.exports.fetchOrders = async (req, res) => {
   console.log("REQ.USER 👉", req.user);
 

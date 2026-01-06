@@ -1,10 +1,10 @@
-// routes/user.js
 const express = require("express");
 const User = require("../models/userModel");
 const { FundsModel } = require("../models/FundsModel");
 const bcrypt = require("bcrypt");
-const JWT_SECRET = process.env.JWT_SECRET;
 const router = express.Router();
+
+
 router.post("/signup", async (req, res) => {
   let createdUserId = null;
 
@@ -32,7 +32,6 @@ router.post("/signup", async (req, res) => {
 
     res.status(201).json({ message: "User registered successfully !" });
   } catch (err) {
-    // 🔁 rollback if user was created but funds failed
     if (createdUserId) {
       await User.deleteOne({ _id: createdUserId });
     }
