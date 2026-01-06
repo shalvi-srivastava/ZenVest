@@ -21,7 +21,7 @@ async function main() {
 }
 main()
   .then(() => console.log("MongoDB connection successful !"))
-  .catch(() => console.log("MongoDB connection failed !"));
+  .catch((err) => console.log("MongoDB connection failed !",err));
 
 // ---------------- MIDDLEWARE ----------------
 app.use(cors());
