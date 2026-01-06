@@ -6,8 +6,9 @@ const cors = require("cors");
 const path = require("path");
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 const mongoUrl = process.env.MONGO_URL;
+
 
 const ExpressError = require("./utils/ExpressError.js");
 
