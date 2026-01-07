@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import WatchList from "./WatchList";
-import Summary from "./Summary/Summary";
+import Summary from "./summary/Summary";
 import Orders from "./Orders";
 import Holdings from "./Holdings";
 import Positions from "./Positions";
