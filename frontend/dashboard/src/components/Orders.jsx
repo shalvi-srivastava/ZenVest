@@ -5,13 +5,13 @@ function Orders({ refreshKey }) {
 
   useEffect(() => {
     axios
-      .get("/api/dashboard/orders", {
+      .get("/dashboard/api/orders", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
-        console.log("ORDERS DATA 👉", res.data); // optional but useful
+        console.log("ORDERS DATA 👉", res.data); 
         setOrders(res.data);
       })
       .catch((err) => {

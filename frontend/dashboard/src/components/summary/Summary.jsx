@@ -5,9 +5,8 @@ import PerformanceCard from "./PerformanceCard";
 import AllocationCard from "./AllocationCard";
 import { useState, useEffect } from "react";
 import axios from "axios";
-export default function Summary({refreshKey}) {
+export default function Summary({ refreshKey }) {
   const [holdings, setHoldings] = useState([]);
-  // const [positions, setPositions] = useState([]);
   const [funds, setFunds] = useState({
     totalBalance: 0,
     investedAmount: 0,
@@ -22,10 +21,6 @@ export default function Summary({refreshKey}) {
     axios.get("/dashboard/api/holdings", { headers }).then((res) => {
       setHoldings(res.data);
     });
-
-    // axios.get("/dashboard/api/positions", { headers }).then((res) => {
-    //   setPositions(res.data);
-    // });
 
     axios.get("/dashboard/api/funds", { headers }).then((res) => {
       setFunds(res.data);
@@ -45,30 +40,7 @@ export default function Summary({refreshKey}) {
   const totalPnL = currentValue - investedAmount;
 
   const totalHoldings = holdings.length;
-  // const totalPositions = positions.length;
   const totalPositions = 0;
-
-  // // total invested = sum(avg * qty)
-  // const investedAmount = holdings.reduce(
-  //   (total, stock) => total + stock.avg * stock.qty,
-  //   0
-  // );
-
-  // // current value = sum(price * qty)
-  // const currentValue = holdings.reduce(
-  //   (total, stock) => total + stock.price * stock.qty,
-  //   0
-  // );
-
-  // // profit / loss
-  // const totalPnL = currentValue - investedAmount;
-
-  // // counts
-  // const totalHoldings = holdings.length;
-  // const totalPositions = positions.length;
-
-  // // simple assumption (dummy wallet logic)
-  // const availableBalance = 50000 - investedAmount;
 
   return (
     <div className="container-fluid ">

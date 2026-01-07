@@ -6,7 +6,7 @@ function Holdings({ refreshKey }) {
   const [holdings, setHoldings] = useState([]);
   const fetchHoldings = () => {
     axios
-      .get("/api/dashboard/holdings", {
+      .get("/dashboard/api/holdings", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
