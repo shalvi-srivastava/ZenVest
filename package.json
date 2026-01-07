@@ -1,8 +1,8 @@
 {
-    "name": "zenvest",
-    "private": true,
-    "scripts": {
-        "build": "npm --prefix frontend/landing install && npm --prefix frontend/landing run build && npm --prefix frontend/dashboard install && npm --prefix frontend/dashboard run build",
-        "start": "node backend/index.js"
-    }
+  "name": "zenvest",
+  "private": true,
+  "scripts": {
+    "build": "npm install --prefix backend && npm --prefix frontend/landing install && npm --prefix frontend/landing run build && npm --prefix frontend/dashboard install && npm --prefix frontend/dashboard run build",
+    "start": "node backend/index.js"
+  }
 }
