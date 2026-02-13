@@ -153,7 +153,7 @@ Out of scope for v1:
 
 ## 🔗 Links
 
-- Live App: https://zenvest.up.railway.app
+- Live App: https://zenvest-vodw.onrender.com/
 - GitHub Repo: https://github.com/shalvi-srivastava/ZenVest/
 
 ---
